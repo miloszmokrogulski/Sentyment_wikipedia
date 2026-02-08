@@ -7,6 +7,19 @@ Wikipedia dąży do "neutralnego punktu widzenia" (NPOV), jednak dobór słownic
 
 Badanie obejmuje języki stron bezpośrednio zaangażowanych (hebrajski, arabski), mocarstw (angielski, rosyjski), państw regionu (turecki, perski) oraz innych (polski, chiński).
 
+## Struktura Projektu
+
+przygotowanie_danych.R - Skrypt ETL. Pobiera dane, komunikuje się z API Hugging Face i zapisuje wynik do CSV.
+
+app.R - Aplikacja wizualizacyjna (R Shiny). Wczytuje gotowe dane i generuje wykresy.
+
+wyniki_sentymentu_1948_final.csv - Przetworzony zbiór danych (wynik działania skryptu ETL).
+
+## Uruchomienie Aplikacji
+
+Projekt zawiera gotowy plik csv, krok ETL został zachowany jedynie w celu replikowalności metody. Wizualizacja danych dostępna jest, otwierając plik app.R i klikając Run App.
+**Uwaga: Proces ETL może trwać ok. 20-40 minut ze względu na limity darmowego API.**
+
 ## Funkcjonalności
 
 ETL Proces: Automatyczne pobieranie artykułów z API Wikipedii (z obsługą przekierowań i specyficznych znaków diakrytycznych) oraz podział tekstu na fragmenty.
@@ -45,13 +58,6 @@ Jest to model wielojęzyczny, trenowany m.in. na języku arabskim, co pozwala na
 
 Metryka: Zamiast prostej klasyfikacji (Positive/Negative), zastosowano Bilans Sentymentu ($P_{pos} - P_{neg}$). Pozwoliło to na wykrycie subtelnych odchyleń w wysoce sformalizowanym, "encyklopedycznym" języku hebrajskim, który standardowo byłby klasyfikowany jako w 100% neutralny.
 
-## Struktura Projektu
-
-przygotowanie_danych.R - Skrypt ETL. Pobiera dane, komunikuje się z API Hugging Face i zapisuje wynik do CSV.
-
-app.R - Aplikacja wizualizacyjna (R Shiny). Wczytuje gotowe dane i generuje wykresy.
-
-wyniki_sentymentu_1948_final.csv - Przetworzony zbiór danych (wynik działania skryptu ETL).
 
 ## Instrukcja Uruchomienia
 
@@ -73,10 +79,3 @@ install.packages(c("shiny", "dplyr", "ggplot2", "plotly", "DT", "scales", "httr"
 Aby uruchomić proces pobierania danych (przygotowanie_danych.R), musisz ustawić zmienną środowiskową z tokenem Hugging Face:
 
 Sys.setenv(HF_TOKEN = "twój_token_tutaj")
-
-
-**Uwaga: Proces ETL może trwać ok. 20-40 minut ze względu na limity darmowego API.**
-
-## Uruchomienie Aplikacji
-
-Projekt zawiera gotowy plik csv, krok ETL został zachowany jedynie w celu replikowalności metody. Wizualizacja danych dostępna jest, otwierając plik app.R i klikając Run App.
